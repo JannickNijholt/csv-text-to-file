@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>CSV Text ↔ CSV File</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>CSV text ↔ file</h1>
+    <p>Paste CSV-like text to download as .csv, or upload a .csv to view as text.</p>
+  </header>
+
+  <div class="control-panel" id="cleanupOptions">
+    <!-- File Operations Card -->
+    <div class="card card--file-operations">
+      <h4>File Operations</h4>
+      <div class="file-upload-area">
+        <div class="file-upload-button-wrapper">
+          <input id="fileInput" type="file" accept=".csv,text/csv" style="display: none;" />
+          <button type="button" class="file-upload-button" onclick="document.getElementById('fileInput').click()">Upload CSV</button>
+          <span id="selectedFilename" class="filename-display">No file chosen</span>
+        </div>
+        <div class="row">
+          <label for="filename">Download Filename:</label>
+          <input id="filename" type="text" value="export.csv" spellcheck="false" />
+        </div>
+        <small class="hint subtle">.csv will be enforced if omitted</small>
+      </div>
+    </div>
+
+    <!-- Options Card -->
+    <div class="card card--options">
+      <h4>General Options</h4>
+      <div class="options-grid">
+        <label class="option-tile" for="normalize">
+          <input id="normalize" type="checkbox" />
+          <span>Normalize delimiters to commas</span>
+        </label>
+        <label class="option-tile" for="addBom">
+          <input id="addBom" type="checkbox" />
+          <span>Add BOM (recommended for Excel)</span>
+        </label>
+      </div>
+
+      <h4 style="margin-top: 1.5rem;">AI Cleanup Options</h4>
+      <div class="options-grid">
+        <label class="option-tile" for="removeEmptyRows">
+          <input id="removeEmptyRows" type="checkbox" class="cleanup-option" />
+          <span>Remove empty rows</span>
+        </label>
+        <label class="option-tile" for="trimWhitespace">
+          <input id="trimWhitespace" type="checkbox" class="cleanup-option" />
+          <span>Trim field whitespace</span>
+        </label>
+        <label class="option-tile" for="fixSmartQuotes">
+          <input id="fixSmartQuotes" type="checkbox" class="cleanup-option" />
+          <span>Fix smart quotes → straight quotes</span>
+        </label>
+        <label class="option-tile" for="removeDuplicates">
+          <input id="removeDuplicates" type="checkbox" class="cleanup-option" />
+          <span>Remove duplicate rows</span>
+        </label>
+      </div>
+
+      <div class="actions-row">
+        <button id="selectAllCleanup" class="btn success" type="button">Select All</button>
+        <button id="downloadBtn" class="btn primary" type="button">Download CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="editor-container">
+    <div class="editor-wrapper">
+      <div id="lineNumbers" class="line-numbers"></div>
+      <textarea id="csvInput" placeholder="Paste your CSV text here..." class="editor-textarea"></textarea>
+    </div>
+  </div>
+  
+  <div id="csvStats" class="csv-stats" style="display: none;">
+    <strong>📊 CSV Info:</strong> <span id="statsContent"></span>
+    <button id="togglePreview" style="margin-left: 1rem; padding: 0.25rem 0.5rem; font-size: 0.8rem; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">Show Preview</button>
+  </div>
+  
+  <div id="csvPreview" class="csv-preview" style="display: none;">
+    <h4 style="margin: 0.5rem 0; font-size: 0.9rem;">📋 Data Preview (first 5 rows)</h4>
+    <div id="previewTable" style="overflow-x: auto; max-height: 300px; border: 1px solid #ddd; border-radius: 4px;"></div>
+  </div>
+  
+  <div id="validationMessage" class="validation-message"></div>
+  
+  <!-- Tips section -->
+  <div class="tips-section">
+    <h4>💡 Tips for AI-Generated CSV Data</h4>
+    <ul>
+      <li>AI often adds extra spaces around commas - use "Trim field whitespace"</li>
+      <li>Smart quotes ("") from AI need conversion to straight quotes ("")</li>
+      <li>Check for duplicate rows that AI might generate</li>
+      <li>Remove empty rows that can appear in AI output</li>
+      <li>Ensure consistent column counts across all rows</li>
+    </ul>
+  </div>
+
+  <p class="note">
+    Notes:
+    - This page does not send data anywhere; all processing is done locally in your browser.
+    - "Normalize delimiters" converts tabs and semicolons to commas per line, preserving quoted fields.
+    - BOM helps Excel detect UTF-8 properly.
+    - Uploading a CSV reads it as UTF-8 text (with BOM auto-detected) and displays it below.
+  </p>
+
+  <script src="script.js"></script>
+</body>
+</html>
