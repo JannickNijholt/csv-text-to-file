@@ -6,11 +6,20 @@
   <title>CSV Text ↔ CSV File</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>CSV text ↔ file</h1>
-    <p>Paste CSV-like text to download as .csv, or upload a .csv to view as text.</p>
+  <header class="app-header">
+    <div class="app-title">
+      <div class="app-icon" aria-hidden="true">🧾</div>
+      <div>
+        <h1>CSV text ↔ file</h1>
+        <p>Paste CSV-like text to download as .csv, or upload a .csv to view as text.</p>
+      </div>
+    </div>
+    <div class="header-actions"></div>
   </header>
 
   <div class="control-panel" id="cleanupOptions">
@@ -44,9 +53,9 @@
           <span>Add BOM (recommended for Excel)</span>
         </label>
       </div>
-
-      <h4 style="margin-top: 1.5rem;">AI Cleanup Options</h4>
-      <div class="options-grid">
+ 
+      <h4 class="section-subtle">AI Cleanup Options</h4>
+      <div class="options-grid ai-cleanups">
         <label class="option-tile" for="removeEmptyRows">
           <input id="removeEmptyRows" type="checkbox" class="cleanup-option" />
           <span>Remove empty rows</span>
@@ -66,7 +75,7 @@
       </div>
 
       <div class="actions-row">
-        <button id="selectAllCleanup" class="btn success" type="button">Select All</button>
+        <button id="selectAllCleanup" class="btn success soft" type="button">Select All</button>
         <button id="downloadBtn" class="btn primary" type="button">Download CSV</button>
       </div>
     </div>
@@ -79,14 +88,14 @@
     </div>
   </div>
   
-  <div id="csvStats" class="csv-stats" style="display: none;">
+  <div id="csvStats" class="csv-stats is-hidden">
     <strong>📊 CSV Info:</strong> <span id="statsContent"></span>
-    <button id="togglePreview" style="margin-left: 1rem; padding: 0.25rem 0.5rem; font-size: 0.8rem; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">Show Preview</button>
+    <button id="togglePreview" class="btn xs primary soft">Show Preview</button>
   </div>
   
-  <div id="csvPreview" class="csv-preview" style="display: none;">
-    <h4 style="margin: 0.5rem 0; font-size: 0.9rem;">📋 Data Preview (first 5 rows)</h4>
-    <div id="previewTable" style="overflow-x: auto; max-height: 300px; border: 1px solid #ddd; border-radius: 4px;"></div>
+  <div id="csvPreview" class="csv-preview is-hidden">
+    <h4>📋 Data Preview (first 5 rows)</h4>
+    <div id="previewTable" class="preview-table-wrap"></div>
   </div>
   
   <div id="validationMessage" class="validation-message"></div>
